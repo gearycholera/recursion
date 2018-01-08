@@ -19,4 +19,8 @@ var stringifyJSON = function(obj) {
   if (obj === false) {
   	return 'false';
   }
+
+  if (typeof obj === 'string') {
+  	return '"' + obj + '"'
+  }
 };
