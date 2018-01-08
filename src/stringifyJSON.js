@@ -11,4 +11,12 @@ var stringifyJSON = function(obj) {
   if (obj === null) {
   	return 'null';
   }
+
+  if (obj === true) {
+  	return 'true';
+  }
+
+  if (obj === false) {
+  	return 'false';
+  }
 };
