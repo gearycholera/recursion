@@ -74,5 +74,4 @@ var stringifyJSON = function(obj) {
   	}
   }
 
-
 };
