@@ -4,6 +4,7 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
+
   if (typeof obj === 'number') {
   	return '' + obj;
   }
@@ -58,18 +59,19 @@ var stringifyJSON = function(obj) {
   	if (objectCount > 0) {
   		var output = '{'
   		for (var key in obj) {
-  			if (objectCount > 1) {
-  				output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + ',';
-  				objectCount--;
-  			}
-  			else {
-  				output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+  			if (typeof obj[key] !== 'function' && obj[key] !== undefined) {
+  			  	if (objectCount > 1) {
+  			    	output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + ',';
+  				  	objectCount--;
+  				}
+  				else {
+  					output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+  				}
   			}
   		}
   		output += '}';
   		return output;
   	}
-
   }
 
 
