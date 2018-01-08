@@ -42,6 +42,15 @@ var stringifyJSON = function(obj) {
   		}
   	}
   	return output;
-  
+  }
+
+  if (typeof obj === 'object' && !Array.isArray(obj)) {
+  	var objectCount = 0;
+  	for (var key in obj) {
+  		objectCount++;
+  	}
+  	if (objectCount === 0) {
+  		return '{}';
+  	}
   }
 };
