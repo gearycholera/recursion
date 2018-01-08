@@ -46,11 +46,31 @@ var stringifyJSON = function(obj) {
 
   if (typeof obj === 'object' && !Array.isArray(obj)) {
   	var objectCount = 0;
+
   	for (var key in obj) {
   		objectCount++;
   	}
+
   	if (objectCount === 0) {
   		return '{}';
   	}
+
+  	if (objectCount > 0) {
+  		var output = '{'
+  		for (var key in obj) {
+  			if (objectCount > 1) {
+  				output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + ',';
+  				objectCount--;
+  			}
+  			else {
+  				output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+  			}
+  		}
+  		output += '}';
+  		return output;
+  	}
+
   }
+
+
 };
