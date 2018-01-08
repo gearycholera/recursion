@@ -27,4 +27,21 @@ var stringifyJSON = function(obj) {
   if (Array.isArray(obj) && obj.length === 0) {
   	return '[]';
   }
+
+  if (Array.isArray(obj) && obj.length > 0) {
+  	var output = '['
+  	for (var i = 0; i <= obj.length ; i++) {
+  		if (i < obj.length - 1) {
+  			output += stringifyJSON(obj[i]) + ',';
+  		}
+  		else if (i === obj.length-1) {
+  			output += stringifyJSON(obj[i]);
+  		}
+  		else {
+  			output += ']'
+  		}
+  	}
+  	return output;
+  
+  }
 };
