@@ -21,6 +21,10 @@ var stringifyJSON = function(obj) {
   }
 
   if (typeof obj === 'string') {
-  	return '"' + obj + '"'
+  	return '"' + obj + '"';
+  }
+
+  if (Array.isArray(obj) && obj.length === 0) {
+  	return '[]';
   }
 };
