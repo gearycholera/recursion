@@ -5,7 +5,7 @@
 
 var stringifyJSON = function(obj) {
 
-  if (typeof obj === 'number') {
+  if (typeof obj === 'number' || typeof obj === 'boolean') {
   	return '' + obj;
   }
 
@@ -13,65 +13,26 @@ var stringifyJSON = function(obj) {
   	return 'null';
   }
 
-  if (obj === true) {
-  	return 'true';
-  }
-
-  if (obj === false) {
-  	return 'false';
-  }
-
   if (typeof obj === 'string') {
   	return '"' + obj + '"';
   }
 
-  if (Array.isArray(obj) && obj.length === 0) {
-  	return '[]';
-  }
-
-  if (Array.isArray(obj) && obj.length > 0) {
-  	var output = '['
-  	for (var i = 0; i <= obj.length ; i++) {
-  		if (i < obj.length - 1) {
-  			output += stringifyJSON(obj[i]) + ',';
-  		}
-  		else if (i === obj.length-1) {
-  			output += stringifyJSON(obj[i]);
-  		}
-  		else {
-  			output += ']'
-  		}
-  	}
-  	return output;
+  if (Array.isArray(obj)) {
+  	var output = [];
+  	obj.forEach(function(item) {
+  		output.push(stringifyJSON(item));
+  	})
+  	return '[' + output + ']';
   }
 
   if (typeof obj === 'object' && !Array.isArray(obj)) {
-  	var objectCount = 0;
-
+  	var output = [];
   	for (var key in obj) {
-  		objectCount++;
-  	}
-
-  	if (objectCount === 0) {
-  		return '{}';
-  	}
-
-  	if (objectCount > 0) {
-  		var output = '{'
-  		for (var key in obj) {
-  			if (typeof obj[key] !== 'function' && obj[key] !== undefined) {
-  			  	if (objectCount > 1) {
-  			    	output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + ',';
-  				  	objectCount--;
-  				}
-  				else {
-  					output += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
-  				}
-  			}
+  		if (typeof obj[key] !== 'function' && obj[key] !== undefined) {
+  			output.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
   		}
-  		output += '}';
-  		return output;
   	}
+  	return '{' + output + '}';
   }
 
 };
