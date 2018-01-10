@@ -20,8 +20,13 @@ var stringifyJSON = function(obj) {
   if (Array.isArray(obj)) {
   	var output = [];
   	obj.forEach(function(item) {
-  		output.push(stringifyJSON(item));
+  		if (typeof item !== 'function' && item !== undefined) {
+  			output.push(stringifyJSON(item));
+  		} else {
+  			output.push(stringifyJSON(null));
+  		}
   	})
+
   	return '[' + output + ']';
   }
 
